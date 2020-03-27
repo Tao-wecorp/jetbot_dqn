@@ -127,3 +127,12 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# ROS
+.idea/
+.catkin_workspace
+build/
+devel/
+
+#VSCODE
+.vscode/
