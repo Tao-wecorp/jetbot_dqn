@@ -1,7 +1,0 @@
-{
-    "python.pythonPath": "/home/robotics/.virtualenvs/py3venv/bin/python",
-    "python.autoComplete.extraPaths": [
-        "/home/robotics/Workspace/jetbot_dqn/devel/lib/python3/dist-packages",
-        "/opt/ros/melodic/lib/python2.7/dist-packages"
-    ]
-}

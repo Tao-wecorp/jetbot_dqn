@@ -131,7 +131,6 @@ dmypy.json
 # ROS
 .idea/
 .catkin_workspace
-build/
 devel/
 
 #VSCODE
