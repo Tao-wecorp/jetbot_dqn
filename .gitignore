@@ -138,3 +138,5 @@ devel/
 
 #Models
 *.caffemodel
+*.onnx
+*.model
