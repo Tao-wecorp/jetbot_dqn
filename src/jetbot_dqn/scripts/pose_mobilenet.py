@@ -32,7 +32,7 @@ class Pose(object):
         inWidth = int((inHeight/frameHeight)*frameWidth)
         net.setInput(cv2.dnn.blobFromImage(cv_image, 1.0, (inWidth, inHeight), (127.5, 127.5, 127.5), swapRB=True, crop=False))
         output = net.forward()
-        output = output[:, :19, :, :]
+        output = output[:, :nPoints, :, :]
 
         H = output.shape[2]
         W = output.shape[3]
