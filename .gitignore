@@ -135,3 +135,6 @@ devel/
 
 #VSCODE
 .vscode/
+
+#Models
+*.caffemodel
