@@ -2,9 +2,7 @@
 
 import cv2
 from cv_bridge import CvBridge, CvBridgeError
-from imutils.video import FPS
 
-import time
 import os
 import rospy
 import rospkg
@@ -12,7 +10,7 @@ rospack = rospkg.RosPack()
 
 from sensor_msgs.msg import Image
 
-openpose_folder = os.path.join(rospack.get_path("jetbot_dqn"), "scripts/helpers/openpose/")
+openpose_folder = os.path.join(rospack.get_path("jetbot_dqn"), "scripts/openpose/")
 protoFile = openpose_folder + "pose_deploy_linevec.prototxt"
 weightsFile = openpose_folder + "pose_iter_440000.caffemodel"
 net = cv2.dnn.readNetFromCaffe(protoFile, weightsFile)
@@ -20,8 +18,6 @@ net.setPreferableBackend(cv2.dnn.DNN_BACKEND_CUDA)
 net.setPreferableTarget(cv2.dnn.DNN_TARGET_CUDA)
 
 nPoints = 18
-
-
 class Pose(object):
     def __init__(self):
         self.bridge_object = CvBridge()
