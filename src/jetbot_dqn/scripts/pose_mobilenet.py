@@ -47,11 +47,11 @@ class Pose(object):
 
             if (prob > threshold):
                 cv2.circle(cv_image, (int(x), int(y)), 3, (0, 255, 255), thickness=-1, lineType=cv2.FILLED)
-                # cv2.putText(cv_image, "{}".format(i), (int(x), int(y)), cv2.FONT_HERSHEY_SIMPLEX, 1.4, (0, 0, 255), 3, lineType=cv2.LINE_AA)
+                # cv2.putText(cv_image, "{}".format(i), (int(x), int(y)), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 3, lineType=cv2.LINE_AA)
                 points.append((int(x), int(y)))
             else :
                 points.append(None)
-
+        print(points[11])
         cv2.imshow("Keypoints",cv_image)
         cv2.waitKey(1)
 
