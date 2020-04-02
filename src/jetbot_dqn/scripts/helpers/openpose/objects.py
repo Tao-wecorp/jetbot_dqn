@@ -10,6 +10,8 @@ from sensor_msgs.msg import Image
 
 openpose_folder = os.path.join(rospack.get_path("jetbot_dqn"), "scripts/helpers/openpose/models/")
 net = cv2.dnn.readNetFromTensorflow(openpose_folder + "graph_opt.pb")
+net.setPreferableBackend(cv2.dnn.DNN_BACKEND_CUDA)
+net.setPreferableTarget(cv2.dnn.DNN_TARGET_CUDA)
 nPoints = 18
 threshold = 0.1
 inHeight = 368

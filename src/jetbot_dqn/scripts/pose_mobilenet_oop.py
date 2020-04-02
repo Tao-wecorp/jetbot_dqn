@@ -2,6 +2,10 @@
 
 import cv2
 from cv_bridge import CvBridge, CvBridgeError
+from copy import deepcopy
+import time
+
+
 import os
 import rospy
 import rospkg
@@ -18,12 +22,19 @@ class Pose(object):
         self.bridge_object = CvBridge()
         self.frame = None
 
-        rate = rospy.Rate(10)
+        rate = rospy.Rate(30)
         while not rospy.is_shutdown():
             if self.frame is not None:
-                points = openpose.detect(self.frame)
-                print(points[11])
+                start_time = time.time()
+                frame = deepcopy(self.frame)
+                points = openpose.detect(frame)
+                x, y = points[11]
+                frame = cv2.circle(frame, (int(x), int(y)), 3, (0, 255, 255), thickness=-1, lineType=cv2.FILLED)
+                cv2.imshow("", frame)
+                cv2.waitKey(1)
+                print("%s seconds" % (time.time() - start_time))
             rate.sleep()
+            
     
     def camera_callback(self,data):
         try:
@@ -37,6 +48,7 @@ def main():
         Pose()
     except KeyboardInterrupt:
         pass
+    cv2.destroyAllWindows()
 
 if __name__ == '__main__':
     main()
