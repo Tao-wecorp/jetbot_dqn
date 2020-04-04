@@ -9,7 +9,7 @@ reward = 0.0
 
 class QLearning():
     def __init__(self):
-        self.state = -10.0  # [angle]
+        self.state = 0.0  # [angle]
         self.position = [0.0, 0.0]  # [x, y]
         self.goal = 0.0  # [angle]
         self.full_angel = 0.0  # [angle]
@@ -39,5 +39,4 @@ class QLearning():
 
         self.setState(new_state)
         reward = self.calcReward()
-
         return self.state, reward

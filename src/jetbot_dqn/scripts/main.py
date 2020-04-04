@@ -8,6 +8,11 @@ import rospy
 from sensor_msgs.msg import Image
 import time
 
+from geometry_msgs.msg import Pose, Quaternion
+from gazebo_msgs.msg import ModelState
+from gazebo_msgs.srv import SetModelState
+from tf.transformations import quaternion_from_euler
+
 from helpers.openpose import OpenPose
 openpose = OpenPose()
 from helpers.qlearning import QLearning
