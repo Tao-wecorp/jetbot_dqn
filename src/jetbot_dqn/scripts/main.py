@@ -10,9 +10,9 @@ import time
 
 from helpers.openpose import OpenPose
 openpose = OpenPose()
-from helpers.qlearning import Q
-q = Q()
-x_fpv, y_fpv = [319, 460]
+from helpers.qlearning import QLearning
+q = QLearning()
+x_fpv, y_fpv = [320, 480]
 
 class Pose(object):
     def __init__(self):
@@ -24,21 +24,20 @@ class Pose(object):
         rate = rospy.Rate(30)
         while not rospy.is_shutdown():
             if self.frame is not None:
-                start_time = time.time()
+                # start_time = time.time()
+
                 frame = deepcopy(self.frame)
-                # detect hip
                 x_hip, y_hip = openpose.detect(frame)[11]
                 yaw_angle = q.yaw([x_hip, y_hip])
                 print(yaw_angle)
-                # show hip & fpv point
+
                 frame = cv2.circle(frame, (int(x_hip), int(y_hip)), 3, (0, 255, 255), thickness=-1, lineType=cv2.FILLED)
-                frame = cv2.circle(frame, (int(x_fpv), int(y_fpv)), 3, (255, 0, 255), thickness=-1, lineType=cv2.FILLED)
+                frame = cv2.circle(frame, (int(x_fpv), int(y_fpv)), 5, (255, 0, 255), thickness=-1, lineType=cv2.FILLED)
                 cv2.imshow("", frame)
                 cv2.waitKey(1)
-                # check excution time
+
                 # print("%s seconds" % (time.time() - start_time))
             rate.sleep()
-            
     
     def camera_callback(self,data):
         try:
