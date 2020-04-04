@@ -9,7 +9,7 @@ from sensor_msgs.msg import Image
 import time
 
 from geometry_msgs.msg import Pose, Quaternion
-from gazebo_msgs.msg import ModelState
+from gazebo_msgs.msg import ModelStates
 from gazebo_msgs.srv import SetModelState
 from tf.transformations import quaternion_from_euler
 
@@ -22,6 +22,9 @@ x_fpv, y_fpv = [320, 480]
 class Pose(object):
     def __init__(self):
         rospy.init_node('pose_node', anonymous=True)
+
+        self.state_sub = rospy.Subscriber("/gazebo/model_states",ModelStates,self.state_callback)
+
         self.image_sub = rospy.Subscriber("/robot/camera1/image_raw",Image,self.camera_callback)
         self.bridge_object = CvBridge()
         self.frame = None
@@ -32,14 +35,14 @@ class Pose(object):
                 # start_time = time.time()
 
                 frame = deepcopy(self.frame)
-                x_hip, y_hip = openpose.detect(frame)[11]
-                yaw_angle = q.yaw([x_hip, y_hip])
-                print(yaw_angle)
+                # x_hip, y_hip = openpose.detect(frame)[11]
+                # yaw_angle = q.yaw([x_hip, y_hip])
+                # print(yaw_angle)
 
-                frame = cv2.circle(frame, (int(x_hip), int(y_hip)), 3, (0, 255, 255), thickness=-1, lineType=cv2.FILLED)
-                frame = cv2.circle(frame, (int(x_fpv), int(y_fpv)), 5, (255, 0, 255), thickness=-1, lineType=cv2.FILLED)
-                cv2.imshow("", frame)
-                cv2.waitKey(1)
+                # frame = cv2.circle(frame, (int(x_hip), int(y_hip)), 3, (0, 255, 255), thickness=-1, lineType=cv2.FILLED)
+                # frame = cv2.circle(frame, (int(x_fpv), int(y_fpv)), 5, (255, 0, 255), thickness=-1, lineType=cv2.FILLED)
+                # cv2.imshow("", frame)
+                # cv2.waitKey(1)
 
                 # print("%s seconds" % (time.time() - start_time))
             rate.sleep()
@@ -50,6 +53,12 @@ class Pose(object):
         except CvBridgeError as e:
             print(e)
         self.frame = cv_image
+
+    def state_callback(self,data):
+        try:
+           print(data)
+        except CvBridgeError as e:
+            print(e)
 
 def main():
     try:
