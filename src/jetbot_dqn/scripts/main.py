@@ -11,7 +11,6 @@ import time
 from geometry_msgs.msg import Pose, Quaternion
 from gazebo_msgs.msg import ModelStates
 from gazebo_msgs.srv import SetModelState
-from tf.transformations import quaternion_from_euler
 
 from helpers.openpose import OpenPose
 openpose = OpenPose()
@@ -56,7 +55,8 @@ class Pose(object):
 
     def state_callback(self,data):
         try:
-           print(data)
+            jetbot_orientation = data.pose[2].orientation.w
+            print(jetbot_orientation)
         except CvBridgeError as e:
             print(e)
 

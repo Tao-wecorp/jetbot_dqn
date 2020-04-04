@@ -30,18 +30,16 @@ class MoveRobotStopOnShutdown(object):
 
 
     def move_robot(self):
-        self.msg.data = [-20.0, -20.0]
-        self.publish()
-        time.sleep(5)
-        self.msg.data = [10.0, 0.0]
-        self.publish()
-        time.sleep(3)
-        self.msg.data = [0.0, 10.0]
-        self.publish()
-        time.sleep(6)
-        self.msg.data = [10.0, 0.0]
-        self.publish()
-        time.sleep(3)
+        while True:
+            self.msg.data = [10.0, 0.0]
+            self.publish()
+            time.sleep(3)
+            self.msg.data = [0.0, 10.0]
+            self.publish()
+            time.sleep(6)
+            self.msg.data = [10.0, 0.0]
+            self.publish()
+            time.sleep(3)
 
         rospy.signal_shutdown("Done!")
 
